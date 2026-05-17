@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: mindbridge
+  autoconfigure:
+    exclude:
+      - org.springframework.ai.autoconfigure.ollama.OllamaAutoConfiguration
+      - org.springframework.ai.autoconfigure.ollama.OllamaEmbeddingAutoConfiguration
+      - org.springframework.ai.vectorstore.chroma.autoconfigure.ChromaVectorStoreAutoConfiguration
+  datasource:
+    url: jdbc:mysql://localhost:3306/mindbridge?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: root
+    password: ${MYSQL_PASSWORD:123456}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        model: qwen3
+        options:
+          temperature: 0.7
+    mcp:
+      server:
+        name: mindbridge-mcp
+        version: 1.0.0
+        enabled: true
+        capabilities:
+          tool: true
+    vectorstore:
+      chroma:
+        collection-name: mindbridge_knowledge
+        url: http://localhost:8000
+        initialize-schema: true
+
+mindbridge:
+  jwt:
+    secret: mindbridge-jwt-secret-key-2025-must-be-long-enough
+    expiration-ms: 86400000
+  email:
+    enabled: false
+    alert-to: admin@mindbridge.edu
+  deepseek:
+    api-key: ${DEEPSEEK_API_KEY:sk-02891e4ec03e4b30a5e98d31c7b0c694}
+    base-url: https://api.deepseek.com
+    model: deepseek-chat
+
+server:
+  port: 8081

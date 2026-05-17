@@ -1,0 +1,15 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+*.class
+*.jar
+*.war
+*.log
+*.tmp
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+mindbridge-exports/
+*.xlsx
